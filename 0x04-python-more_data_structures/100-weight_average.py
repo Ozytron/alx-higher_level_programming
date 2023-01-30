@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 def weight_average(my_list=[]):
-    weighted_scores = list(map(lambda x: x[0] * x[1], my_list))
+    if not my_list:
+        return 0
+
     total_w_scores = 0
     total_weight = 0
 
-    for n in weighted_scores:
-        total_w_scores += n
     for sample in my_list:
         total_weight += sample[1]
-    w_av = total_w_scores / total_weight
+        total_w_scores += (sample[0]*sample[1])
 
-    return (w_av)
+    return (total_w_scores / total_weight)
