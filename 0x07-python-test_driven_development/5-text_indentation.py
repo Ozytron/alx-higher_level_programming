@@ -4,11 +4,16 @@ def text_indentation(text):
     if not isinstance(text, str):
         raise TypeError("text must be a string")
     i = 0
+    while i < len(text) and text[i] == ' ':
+        i += 1
+
     while i < len(text):
-        if text[i] not in special_char:
-            print(text[i], end='')
-        else:
-            print("{}\n".format(text[i]))
-            if text[i + 1] == ' ':
+        print(text[i], end="")
+        if text[i] == "\n" or text[i] in special_char:
+            if text[i] in special_char:
+                print("\n")
+            i += 1
+            while i < len(text) and text[i] == ' ':
                 i += 1
+            continue
         i += 1
