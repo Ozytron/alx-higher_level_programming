@@ -12,14 +12,25 @@ def matrix_mul(m_a, m_b):
         raise ValueError("m_a can't be empty")
     if m_b == [] or m_b == [[]]:
         raise ValueError("m_b can't be empty")
-    if all((isinstance(elem, int) or isinstance(elem, float)) for elem in [num for row in m_a for num in row]):
-        raise TypeError("m_a should contain only integers or floats")
-    if all((isinstance(elem, int) or isinstance(elem, float)) for elem in [num for row in m_b for num in row]):
-        raise TypeError("m_b should contain only integers or floats")
-    if len(m_a[0]) != (len(m_a[i]) for i in range(len(m_a[0]))):
-        raise TypeError("each row of m_a must be of the same size")
-    if len(m_b[0]) != (len(m_b[i]) for i in range(len(m_b[0]))):
-        raise TypeError("each row of m_b must be of the same size")
+    for row in m_a:
+        for elem in row:
+            if not type(elem) in [int, float]:
+                raise TypeError("m_a should contain only integers or floats")
+
+    for row in m_b:
+        for elem in row:
+            if not type(elem) in [int, float]:
+                raise TypeError("m_b should contain only integers or floats")
+
+    length = len(m_a[0])
+    for i in range(len(m_a)):
+        if len(m_a[i]) != length:
+            raise TypeError("each row of m_a must be of the same size")
+
+    length = len(m_b[0])
+    for i in range(len(m_b)):
+        if len(m_b[i]) != length:
+            raise TypeError("each row of m_b must be of the same size")
     if len(m_a) != len(m_b[0]):
         raise ValueError("m_a and m_b can't be multiplied")
 
@@ -31,7 +42,7 @@ def matrix_mul(m_a, m_b):
         mul_row = []
         while j < len(m_b[0]):
             value += (row[i] * m_b[i][j])
-            if i == len(m_b[0]) - 1:
+            if i == len(m_b) - 1:
                 i = 0
                 j += 1
                 mul_row.append(value)
