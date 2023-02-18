@@ -101,7 +101,7 @@ def cross_out(chess_board, row, col):
         d += 1
 
 
-def solve_recursively(chess_board, row, queens, solutions):
+def solve_recursive(chess_board, row, NQ, solutions):
     """
     this function solves recursively by placing queen "Q" at positions
     in the current chessboard to arrive at an arrangement where N queens
@@ -109,12 +109,12 @@ def solve_recursively(chess_board, row, queens, solutions):
     function args:
         chess_board (type = list): the current working chessboard.
         row (type = int): the current working row.
-        queens (type = int): the current number of queens placed on the board
+        NQ (type = int): the current number of queens placed on the board
         solutions (type = list): A list of lists of solutions.
     return:
         solutions
     """
-    if queens == len(chess_board):
+    if NQ == len(chess_board):
         """record the solution found"""
         solutions.append(fetch_solution(chess_board))
         return (solutions)
@@ -130,8 +130,7 @@ def solve_recursively(chess_board, row, queens, solutions):
             cross_out(temp_board, row, c)
 
             """The continue by solving recursively"""
-            solutions = solve_recursively(temp_board, row + 1,
-                                        queens + 1, solutions)
+            solutions = solve_recursive(temp_board, row + 1, NQ + 1, solutions)
 
     return (solutions)
 
@@ -148,6 +147,6 @@ if __name__ == "__main__":
         exit(1)
 
     chess_board = init_chess_board(int(sys.argv[1]))
-    solutions = solve_recursively(chess_board, 0, 0, [])
+    solutions = solve_recursive(chess_board, 0, 0, [])
     for soln in solutions:
         print(soln)
