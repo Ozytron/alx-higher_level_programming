@@ -1,3 +1,3 @@
---script that lists all records with a score >= 10 in the table second_table.
---Results should display both the score(top first) and the name (in this order)
+--select the best
+-- lists all records with a score >= 10 in the table second_table
 SELECT score, name FROM second_table WHERE score >= 10 ORDER BY score DESC;
